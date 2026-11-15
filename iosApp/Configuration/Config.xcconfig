@@ -10,6 +10,6 @@ PRODUCT_NAME = Template
 PRODUCT_BUNDLE_IDENTIFIER = com.example.template
 
 // Version shown to users. Bumped automatically by release-please from conventional commits.
-MARKETING_VERSION = 0.1.0 // x-release-please-version
+MARKETING_VERSION = 0.1.1 // x-release-please-version
 // Build number for local builds. The TestFlight lane sets it to the latest TestFlight build + 1.
 CURRENT_PROJECT_VERSION = 1
