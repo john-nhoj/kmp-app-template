@@ -52,7 +52,8 @@ Keep Swift changes small and conventional, and say clearly that they still need 
    shared by modules goes into a convention plugin, not copy-pasted into `build.gradle.kts`.
 9. **Commits** follow Conventional Commits (`feat(home): ...`, `fix(ios): ...`); see `CONTRIBUTING.md`.
 
-## Detailed rules (loaded by path)
+## Detailed rules
 
-`.claude/rules/` holds scoped guidance: `kotlin-shared.md`, `android-ui.md`, `ios-ui.md`, `testing.md`,
-`networking.md`, `persistence.md`, `build-and-ci.md`. The `new-feature` skill scaffolds a whole feature.
+`.claude/rules/` holds scoped guidance, loaded by path: `kotlin-shared.md`, `android-ui.md`, `ios-ui.md`,
+`testing.md`, `networking.md`, `persistence.md`, `build-and-ci.md`. `git.md` (branches, worktrees, PRs)
+always applies. The `new-feature` skill scaffolds a whole feature.

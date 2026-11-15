@@ -38,7 +38,10 @@ feat(shared)!: require iOS 18
 
 ## Branches and pull requests
 
-- Branch from `main`: `feat/<short-name>`, `fix/<short-name>`, `chore/<short-name>`.
+- Never commit on `main`. Branch from `main`, one issue or concern per branch, named
+  `<type>/<issue>-<slug>` after the Conventional Commit type: `feat/3-logout`, `fix/12-crash-on-sign-out`,
+  `chore/8-change-domain`. Without an issue: `<type>/<slug>`.
+- Work in a git worktree outside the repo directory (Konsist scans every `.kt` file under it).
 - Open a PR whose **title is a Conventional Commit**; it becomes the squash-merge commit.
 - CI must be green: `./gradlew check` locally covers almost everything CI runs on Linux.
 - UI changes: add Android and iOS screenshots to the PR.

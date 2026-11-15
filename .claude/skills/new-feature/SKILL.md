@@ -23,6 +23,7 @@ sections 1–10. Don't create another worktree and don't delegate again.
 
 ### 0b. Branch, base and worktree
 1. **Branch**: `feat/<n>-<slug>` for an issue (`feat/3-logout`), else `feat/<name>`. Kebab-case.
+   A chore or fix uses its own type (`chore/8-change-domain`); see `.claude/rules/git.md`.
    For the slug, `gh issue view <n> --json title` is enough; in Herdr, leave reading and analysing
    the issue to the delegated agent.
 2. **Base**: `origin/main` by default (`git fetch origin` first). If the work needs code that only
