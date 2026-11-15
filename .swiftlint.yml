@@ -1,0 +1,32 @@
+# SwiftLint - https://realm.github.io/SwiftLint/rule-directory.html
+included:
+  - iosApp/iosApp
+excluded:
+  - iosApp/build
+
+opt_in_rules:
+  - closure_spacing
+  - contains_over_first_not_nil
+  - empty_count
+  - explicit_init
+  - first_where
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - modifier_order
+  - multiline_parameters
+  - private_swiftui_state
+  - redundant_nil_coalescing
+  - sorted_imports
+  - toggle_bool
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+
+line_length:
+  warning: 120
+  error: 150
+  ignores_comments: true
+
+identifier_name:
+  excluded: [id, x, y]
+
+# CI runs `swiftlint --strict`: warnings fail the build.

@@ -1,0 +1,24 @@
+# Git hooks - https://lefthook.dev
+# Install once per clone:  lefthook install   (see docs/SETUP.md for installing lefthook itself)
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: scripts/git-hooks/check-commit-msg.sh {1}
+
+pre-commit:
+  parallel: true
+  commands:
+    ktlint:
+      glob: "*.{kt,kts}"
+      run: ./gradlew ktlintFormat --quiet
+      stage_fixed: true
+    swiftlint:
+      glob: "*.swift"
+      # Optional locally (SwiftLint is macOS/Docker); CI always runs it.
+      run: command -v swiftlint >/dev/null && swiftlint lint --strict --quiet {staged_files} || true
+
+pre-push:
+  commands:
+    quality:
+      run: ./gradlew detekt :konsist:test testAndroidHostTest --quiet

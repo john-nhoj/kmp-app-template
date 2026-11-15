@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Hello, %@!" : {
+
+    },
+    "Hello!" : {
+
+    },
+    "Home" : {
+
+    },
+    "Refresh" : {
+
+    },
+    "Something went wrong." : {
+
+    },
+    "Try Again" : {
+
+    }
+  },
+  "version" : "1.0"
+}

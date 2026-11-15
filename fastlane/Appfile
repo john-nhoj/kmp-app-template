@@ -1,0 +1,9 @@
+# Identity used by every lane. scripts/rename.sh rewrites the identifiers.
+
+# Android (Google Play)
+package_name("com.example.template")
+json_key_file(ENV["PLAY_JSON_KEY_PATH"]) if ENV["PLAY_JSON_KEY_PATH"]
+
+# iOS (App Store Connect)
+app_identifier("com.example.template")
+team_id(ENV["APPLE_TEAM_ID"]) if ENV["APPLE_TEAM_ID"]

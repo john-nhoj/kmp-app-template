@@ -1,0 +1,49 @@
+# Gradle / Kotlin
+.gradle/
+build/
+.kotlin/
+local.properties
+
+# IDEs
+.idea/
+*.iml
+.fleet/
+.vscode/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Android signing (never commit keys)
+*.jks
+*.keystore
+keystore.properties
+play-store-credentials.json
+
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+iosApp/build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+*.ipa
+*.dSYM.zip
+*.p8
+
+# Ruby
+vendor/bundle/
+.bundle/
+
+# Node (commitlint, optional local use)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json

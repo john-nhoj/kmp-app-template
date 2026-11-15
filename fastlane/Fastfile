@@ -1,0 +1,66 @@
+# Store deployment lanes. CI calls them from .github/workflows/deploy-*.yml; they also work locally
+# once the same environment variables are set. Setup guide: docs/DEPLOYMENT.md
+
+opt_out_usage
+
+platform :android do
+  desc "Build a signed AAB and upload it to the Google Play internal testing track"
+  lane :internal do
+    # Version code = highest code already on Play + 1, so it never collides with a previous upload.
+    tracks = %w[internal alpha beta production]
+    existing = tracks.flat_map do |track|
+      google_play_track_version_codes(track: track)
+    rescue StandardError
+      []
+    end
+    ENV["VERSION_CODE"] = ((existing.max || 0) + 1).to_s
+    UI.message("Using versionCode #{ENV['VERSION_CODE']}")
+
+    gradle(task: ":androidApp:bundleRelease")
+
+    upload_to_play_store(
+      track: "internal",
+      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      # Use "draft" until the app has been published once in the Play Console.
+      release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+end
+
+platform :ios do
+  desc "Archive a signed build and upload it to TestFlight"
+  lane :beta do
+    setup_ci if ENV["CI"]
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_filepath: ENV.fetch("ASC_KEY_PATH"),
+    )
+
+    # Build number = latest TestFlight build + 1.
+    build_number = latest_testflight_build_number(api_key: api_key, initial_build_number: 0) + 1
+
+    # Cloud-managed signing: Xcode creates/downloads certificates and profiles via the API key.
+    auth_args = [
+      "-allowProvisioningUpdates",
+      "-authenticationKeyPath #{ENV.fetch('ASC_KEY_PATH')}",
+      "-authenticationKeyID #{ENV.fetch('ASC_KEY_ID')}",
+      "-authenticationKeyIssuerID #{ENV.fetch('ASC_ISSUER_ID')}",
+    ].join(" ")
+
+    build_app(
+      project: "iosApp/iosApp.xcodeproj",
+      scheme: "iosApp",
+      configuration: "Release",
+      export_method: "app-store",
+      xcargs: "#{auth_args} DEVELOPMENT_TEAM=#{ENV.fetch('APPLE_TEAM_ID')} CURRENT_PROJECT_VERSION=#{build_number}",
+      export_xcargs: auth_args,
+    )
+
+    upload_to_testflight(api_key: api_key, skip_waiting_for_build_processing: true)
+  end
+end

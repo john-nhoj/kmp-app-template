@@ -1,0 +1,59 @@
+# Overrides on top of detekt's default config (buildUponDefaultConfig = true).
+# Formatting is ktlint's job; detekt focuses on smells, complexity and potential bugs.
+
+complexity:
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 8
+    ignoreDefaultParameters: true
+    ignoreAnnotated: ['Composable']
+  LongMethod:
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    ignorePrivate: true
+    ignoreOverridden: true
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+  MatchingDeclarationName:
+    mustBeFirst: true
+
+style:
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated: ['Preview', 'PreviewLightDark']
+    excludes: ['**/test/**', '**/commonTest/**', '**/androidHostTest/**', '**/iosTest/**', '**/ui/theme/**']
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview', 'PreviewLightDark']
+  ForbiddenComment:
+    active: false
+  MaxLineLength:
+    maxLineLength: 120
+    excludeCommentStatements: true
+  ReturnCount:
+    max: 3
+  WildcardImport:
+    active: true
+
+# Compose rules (io.nlopez.compose.rules) - https://mrmans0n.github.io/compose-rules/
+Compose:
+  ComposableAnnotationNaming:
+    active: true
+  ModifierMissing:
+    active: true
+  ModifierReused:
+    active: true
+  ModifierWithoutDefault:
+    active: true
+  MutableParams:
+    active: true
+  RememberMissing:
+    active: true
+  ViewModelForwarding:
+    active: true
+  ViewModelInjection:
+    active: true

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits", ":dependencyDashboard"],
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Kotlin, its compiler plugins and SKIE must move together (SKIE supports specific Kotlin versions)",
+      "groupName": "Kotlin + SKIE",
+      "matchPackageNames": ["/^org\\.jetbrains\\.kotlin[.:]/", "/^org\\.jetbrains\\.kotlin$/", "/^co\\.touchlab\\.skie/"]
+    },
+    {
+      "groupName": "Android Gradle Plugin",
+      "matchPackageNames": ["/^com\\.android\\.tools\\.build:/", "/^com\\.android\\.(application|kotlin\\.multiplatform\\.library)/"]
+    },
+    {
+      "groupName": "AndroidX",
+      "matchPackageNames": ["/^androidx\\./"]
+    },
+    {
+      "groupName": "Koin",
+      "matchPackageNames": ["/^io\\.insert-koin/"]
+    },
+    {
+      "groupName": "Code quality tools",
+      "matchPackageNames": ["/detekt/", "/ktlint/", "/kover/", "/konsist/", "/io\\.nlopez\\.compose\\.rules/", "realm/SwiftLint", "ghcr.io/realm/swiftlint"]
+    },
+    {
+      "description": "Low-risk: automerge minor/patch updates of CI actions once checks pass",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "GitHub Actions",
+      "automerge": true
+    },
+    {
+      "description": "detekt 1.x is the latest stable; 2.x will be adopted once it is stable",
+      "matchPackageNames": ["/detekt/"],
+      "allowedVersions": "!/alpha|beta|rc/i"
+    }
+  ]
+}
